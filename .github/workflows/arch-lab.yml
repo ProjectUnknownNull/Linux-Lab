@@ -37,4 +37,13 @@ jobs:
             -boot d \
             -audiodev none,id=noaudio \
             -machine pc \
-            -vnc :0
+            -vnc :0 \
+            > qemu.log 2>&1 &
+
+          sleep 10
+
+          echo "===== QEMU LOG ====="
+          cat qemu.log || true
+
+          echo "===== RUNNING PROCESSES ====="
+          ps -ef | grep qemu
