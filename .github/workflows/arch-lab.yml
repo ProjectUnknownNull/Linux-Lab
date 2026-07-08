@@ -27,6 +27,13 @@ jobs:
         run: |
           qemu-img create -f qcow2 arch.qcow2 20G
 
-      - name: Show files
+          
+      - name: Boot Arch VM
         run: |
-          ls -lh
+          qemu-system-x86_64 \
+            -m 2048 \
+            -smp 2 \
+            -drive file=arch.qcow2,format=qcow2 \
+            -cdrom archlinux.iso \
+            -boot d \
+            -nographic
