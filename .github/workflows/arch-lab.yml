@@ -35,4 +35,6 @@ jobs:
             -drive file=arch.qcow2,format=qcow2 \
             -cdrom archlinux.iso \
             -boot d \
+            -audiodev none,id=noaudio \
+            -machine pc \
             -vnc :0
