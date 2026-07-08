@@ -11,12 +11,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install QEMU
+      - name: Install packages
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             qemu-system-x86 \
             qemu-utils \
+            novnc \
+            websockify \
             wget
 
       - name: Download Arch ISO
@@ -27,7 +29,7 @@ jobs:
         run: |
           qemu-img create -f qcow2 arch.qcow2 20G
 
-      - name: Boot Arch VM
+      - name: Start Arch VM
         run: |
           qemu-system-x86_64 \
             -m 2048 \
@@ -42,8 +44,25 @@ jobs:
 
           sleep 10
 
-          echo "===== QEMU LOG ====="
-          cat qemu.log || true
+      - name: Start noVNC
+        run: |
+          websockify --web=/usr/share/novnc/ 6080 localhost:5900 > novnc.log 2>&1 &
 
-          echo "===== RUNNING PROCESSES ====="
-          ps -ef | grep qemu
+          sleep 5
+
+      - name: Check everything
+        run: |
+          echo "===== QEMU ====="
+          ps -ef | grep qemu || true
+
+          echo
+          echo "===== noVNC ====="
+          ps -ef | grep websockify || true
+
+          echo
+          echo "===== Listening Ports ====="
+          ss -tln
+
+          echo
+          echo "===== noVNC Log ====="
+          cat novnc.log || true
