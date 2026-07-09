@@ -1,4 +1,4 @@
-name: OS Lab
+name: Linux lab
 
 on:
   workflow_dispatch:
@@ -29,7 +29,7 @@ on:
         default: "1920x1080"
 
 jobs:
-  arch:
+  linuxlab:
     runs-on: ubuntu-latest
 
     steps:
@@ -94,10 +94,10 @@ jobs:
         run: |
           qemu-img create -f qcow2 arch.qcow2 ${{ github.event.inputs.disk }}
 
-      - name: OS Lab Info
+      - name: Linux Lab Info
         run: |
            echo "===================================="
-           echo "        🧪 OS LAB"
+           echo "        🧪 Linux LAB"
            echo "===================================="
            echo ""
            echo "CPU : ${{ github.event.inputs.cpu }}"
@@ -154,7 +154,7 @@ jobs:
 
           echo ""
           echo "========================================"
-          echo "🧪 OS LAB IS READY!"
+          echo "🧪 Linux lab IS READY!"
           echo "========================================"
           echo ""
           echo "🌍 Browser:"
