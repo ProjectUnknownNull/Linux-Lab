@@ -108,9 +108,9 @@ jobs:
            echo "RAM : ${{ github.event.inputs.ram }} MB"
            echo "Disk: ${{ github.event.inputs.disk }}"
            echo "Res : ${{ github.event.inputs.resolution }}"
-           echo ""    
+           echo ""
 
-       - name: Start OS Lab VM
+      - name: Start Linux Lab VM
         run: |
           echo "Starting UEFI VM..."
 
