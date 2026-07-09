@@ -110,7 +110,7 @@ jobs:
            echo "Res : ${{ github.event.inputs.resolution }}"
            echo ""    
 
-      - name: Start Linux Lab VM
+       - name: Start OS Lab VM
         run: |
           echo "Starting UEFI VM..."
 
@@ -130,6 +130,9 @@ jobs:
             -boot menu=on \
             \
             -device virtio-vga \
+            \
+            -netdev user,id=net0 \
+            -device virtio-net-pci,netdev=net0 \
             \
             -display none \
             -vnc :0 \
